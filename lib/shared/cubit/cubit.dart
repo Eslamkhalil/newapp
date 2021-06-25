@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/layout/bottom_navigation_screens/business_screen.dart';
 import 'package:newapp/layout/bottom_navigation_screens/science_screen.dart';
 import 'package:newapp/layout/bottom_navigation_screens/sport_screen.dart';
+import 'package:newapp/network/local/cache_helper.dart';
 import 'package:newapp/network/remote/dio_helper.dart';
 import 'package:newapp/shared/cubit/app_news_state.dart';
 
@@ -18,6 +19,7 @@ class NewsCubit extends Cubit<AppNewsState>{
   List<dynamic> science= [];
   List<dynamic> sport= [];
   List<dynamic> search= [];
+  bool isDark = false;
   static NewsCubit get (context) => BlocProvider.of(context);
 
 
@@ -31,6 +33,8 @@ class NewsCubit extends Cubit<AppNewsState>{
 
   void changeIndex({@required int index}){
     currentIndex = index;
+    if(index == 0)
+      getNewsData();
     if(index == 1)
       getSportData();
     if(index==2)
@@ -87,6 +91,25 @@ class NewsCubit extends Cubit<AppNewsState>{
     });
   }
 
+
+  void changeAppMode({bool fromShared}) {
+    if(fromShared != null){
+      isDark = fromShared;
+      emit(AppChangeModeState());
+    }
+
+    else {
+      isDark = !isDark;
+      print('before changed value $isDark');
+      CacheHelper.putBool('isDark', isDark).then((value) {
+
+        print('changed value $value');
+        emit(AppChangeModeState());});
+
+    }
+
+
+  }
 
   void getSearch(String value){
 

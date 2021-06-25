@@ -34,7 +34,9 @@ class Home extends StatelessWidget {
                 icon: Icon(Icons.search),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  cubit.changeAppMode();
+                },
                 icon: Icon(Icons.brightness_4_outlined),
               ),
             ],

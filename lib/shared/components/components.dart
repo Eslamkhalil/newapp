@@ -10,7 +10,7 @@ Widget buildItemList(article) => ConditionalBuilder(
             Container(
               height: 120,
               width: 120,
-              child: Image.network('${article['urlToImage']}'),
+              child: Image.network('${article['urlToImage']}',scale: 1.0,),
             ),
             SizedBox(
               width: 16,
