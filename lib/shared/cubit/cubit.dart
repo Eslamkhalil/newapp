@@ -17,6 +17,7 @@ class NewsCubit extends Cubit<AppNewsState>{
   List<dynamic> business= [];
   List<dynamic> science= [];
   List<dynamic> sport= [];
+  List<dynamic> search= [];
   static NewsCubit get (context) => BlocProvider.of(context);
 
 
@@ -84,5 +85,25 @@ class NewsCubit extends Cubit<AppNewsState>{
       print(onError.toString());
       emit(AppOnErrorSportNewsState(onError.toString()));
     });
+  }
+
+
+  void getSearch(String value){
+
+  //  emit(AppLoadingSportNewsState());
+    search=[];
+    DioHelper().getData(url: 'v2/everything', query: {
+      'q':'$value',
+      'apiKey':'2653eb8c13b74596865cecf5ea9a9065',
+
+    }).then((value) {
+      search =value.data['articles'];
+      print(search[0]['title']);
+      emit(AppGetSearchNewsState());
+    }).catchError((onError){
+      print(onError.toString());
+      emit(AppOnErrorSearchNewsState(onError.toString()));
+    });
+
   }
 }

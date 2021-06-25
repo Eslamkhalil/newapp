@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newapp/modules/search_screen/search.dart';
 import 'package:newapp/network/remote/dio_helper.dart';
+import 'package:newapp/shared/components/components.dart';
 import 'package:newapp/shared/cubit/app_news_state.dart';
 import 'package:newapp/shared/cubit/cubit.dart';
 
@@ -15,8 +17,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (BuildContext context) => NewsCubit()..getNewsData(),
-    child: BlocConsumer<NewsCubit , AppNewsState>(
+    return BlocConsumer<NewsCubit , AppNewsState>(
       listener: (context, state){},
       builder: (context , state ){
         var cubit = NewsCubit.get(context);
@@ -26,7 +27,10 @@ class Home extends StatelessWidget {
             titleSpacing: 20.0,
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  cubit.search=[];
+                  navigateTo(context: context,widget: SearchScreen());
+                },
                 icon: Icon(Icons.search),
               ),
               IconButton(
@@ -55,7 +59,6 @@ class Home extends StatelessWidget {
           body: cubit.screens[cubit.currentIndex],
         );
       },
-    ),
     );
   }
 }

@@ -55,3 +55,30 @@ Widget myDivider() => Container(
       height: 1.0,
       color: Colors.grey[300],
     );
+
+Widget defaultFormField({TextEditingController controller, String hint, Function onTap, IconData icon, Function onChange}) => TextFormField(
+      controller: controller,
+      onTap: onTap,
+      onChanged: onChange,
+      validator: (value) {
+        if (value.isEmpty) {
+          return '$hint must be provided';
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        prefixIcon: Icon(
+          icon,
+          color: Colors.red,
+        ),
+        // contentPadding: EdgeInsets.symmetric(horizontal:16.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+        hintText: hint,
+      ),
+    );
+
+void navigateTo({@required context, @required Widget widget}){
+  Navigator.push(context,MaterialPageRoute(
+    builder: (context) => widget
+  ));
+}

@@ -33,3 +33,11 @@ class AppOnErrorScienceNewsState extends AppNewsState{
 
 class AppLoadingScienceNewsState extends AppNewsState{}
 
+
+class AppGetSearchNewsState extends AppNewsState{}
+
+class AppOnErrorSearchNewsState extends AppNewsState{
+  String error;
+  AppOnErrorSearchNewsState(this.error);
+}
+
