@@ -36,7 +36,7 @@ class SearchScreen extends StatelessWidget {
              ),
 
              Expanded(child: ConditionalBuilder(condition: list.length > 0 , builder: (context) => ListView.separated(
-                 itemBuilder: (context, index) => buildItemList(list[index]),
+                 itemBuilder: (context, index) => buildArticleItem(list[index],context),
                  separatorBuilder: (context, index) => myDivider(),
                  itemCount: list.length)
                ,fallback:(context) => Center(child: CircularProgressIndicator()),

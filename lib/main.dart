@@ -34,6 +34,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => NewsCubit()..changeAppMode(fromShared: isDark)),
 
 
+
+
         ],
         child: BlocConsumer<NewsCubit , AppNewsState>(
           listener: (context , state){},

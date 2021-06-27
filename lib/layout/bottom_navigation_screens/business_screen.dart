@@ -13,7 +13,7 @@ class BusinessNews extends StatelessWidget {
     return BlocConsumer<NewsCubit,AppNewsState>(builder: (context,state){
       var list = NewsCubit.get(context).business;
       return ConditionalBuilder(condition: list.length > 0 , builder: (context) => ListView.separated(
-          itemBuilder: (context, index) => buildItemList(list[index]),
+          itemBuilder: (context, index) => buildArticleItem(list[index],context),
           separatorBuilder: (context, index) => myDivider(),
           itemCount: list.length)
       ,fallback:(context) => Center(child: CircularProgressIndicator()),
