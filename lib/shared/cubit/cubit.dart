@@ -15,10 +15,10 @@ class NewsCubit extends Cubit<AppNewsState>{
   NewsCubit() : super (AppInitialState());
 
   int currentIndex=0;
-  List<dynamic> business= [];
-  List<dynamic> science= [];
-  List<dynamic> sport= [];
-  List<dynamic> search= [];
+  List<dynamic>? business= [];
+  List<dynamic>? science= [];
+  List<dynamic>? sport= [];
+  List<dynamic>? search= [];
   bool isDark = false;
   static NewsCubit get (context) => BlocProvider.of(context);
 
@@ -31,7 +31,7 @@ class NewsCubit extends Cubit<AppNewsState>{
   ];
 
 
-  void changeIndex({@required int index}){
+  void changeIndex({required int index}){
     currentIndex = index;
     if(index == 0)
       getNewsData();
@@ -51,7 +51,7 @@ class NewsCubit extends Cubit<AppNewsState>{
 
     }).then((value) {
       business =value.data['articles'];
-      print(business[0]['title']);
+      print(business![0]['title']);
       emit(AppGetBusinessNewsState());
     }).catchError((onError){
       print(onError.toString());
@@ -67,7 +67,7 @@ class NewsCubit extends Cubit<AppNewsState>{
 
     }).then((value) {
       science =value.data['articles'];
-      print(science[0]['title']);
+      print(science![0]['title']);
       emit(AppGetScienceNewsState());
     }).catchError((onError){
       print(onError.toString());
@@ -83,7 +83,7 @@ class NewsCubit extends Cubit<AppNewsState>{
 
     }).then((value) {
       sport =value.data['articles'];
-      print(sport[0]['title']);
+      print(sport![0]['title']);
       emit(AppGetSportNewsState());
     }).catchError((onError){
       print(onError.toString());
@@ -92,7 +92,7 @@ class NewsCubit extends Cubit<AppNewsState>{
   }
 
 
-  void changeAppMode({bool fromShared}) {
+  void changeAppMode({bool? fromShared}) {
     if(fromShared != null){
       isDark = fromShared;
       emit(AppChangeModeState());
@@ -121,7 +121,7 @@ class NewsCubit extends Cubit<AppNewsState>{
 
     }).then((value) {
       search =value.data['articles'];
-      print(search[0]['title']);
+      print(search![0]['title']);
       emit(AppGetSearchNewsState());
     }).catchError((onError){
       print(onError.toString());

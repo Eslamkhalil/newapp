@@ -1,26 +1,32 @@
-import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:newapp/modules/web_view/web_view.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-Widget buildArticleItem(article ,context) => InkWell(
-  onTap: (){
-   navigateTo(context: context, widget: WebViewScreen(url: article['url'],));
-  },
-  child:   Padding(
-    padding: const EdgeInsets.all(20.0),
-    child: Row(
-      children: [
-        Container(
-          height: 120,
-          width: 120,
-          child: Image.network('${article['urlToImage']}',scale: 1.0,),
-        ),
-        SizedBox(
-          width: 16,
-        ),
-        Expanded(
-            child: Container(
+Widget buildArticleItem(article, context) => InkWell(
+      onTap: () {
+        navigateTo(
+            context: context,
+            widget: WebViewScreen(
+              url: article['url'],
+            ));
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            Container(
+              height: 120,
+              width: 120,
+              child: Image.network(
+                '${article['urlToImage']}',
+                scale: 1.0,
+              ),
+            ),
+            SizedBox(
+              width: 16,
+            ),
+            Expanded(
+                child: Container(
               height: 120,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,15 +34,15 @@ Widget buildArticleItem(article ,context) => InkWell(
                 children: [
                   Expanded(
                       child: Text(
-                        '${article['title']}',
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.1,
-                        ),
-                      )),
+                    '${article['title']}',
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.1,
+                    ),
+                  )),
                   Text('${article['publishedAt']}',
                       style: TextStyle(
                           fontSize: 18.0,
@@ -46,10 +52,10 @@ Widget buildArticleItem(article ,context) => InkWell(
                 ],
               ),
             )),
-      ],
-    ),
-  ),
-);
+          ],
+        ),
+      ),
+    );
 
 Widget myDivider() => Container(
       width: double.infinity,
@@ -57,12 +63,18 @@ Widget myDivider() => Container(
       color: Colors.grey[300],
     );
 
-Widget defaultFormField({TextEditingController controller, String hint, Function onTap, IconData icon, Function onChange}) => TextFormField(
+Widget defaultFormField(
+        {TextEditingController? controller,
+        String? hint,
+        Function? onTap,
+        IconData? icon,
+        Function? onChange}) =>
+    TextFormField(
       controller: controller,
-      onTap: onTap,
-      onChanged: onChange,
+      onTap: onTap as void Function()?,
+      onChanged: onChange as void Function(String)?,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return '$hint must be provided';
         }
         return null;
@@ -78,8 +90,6 @@ Widget defaultFormField({TextEditingController controller, String hint, Function
       ),
     );
 
-void navigateTo({@required context, @required Widget widget}){
-  Navigator.push(context,MaterialPageRoute(
-    builder: (context) => widget
-  ));
+void navigateTo({required context, required Widget widget}) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 }
